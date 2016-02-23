@@ -17,7 +17,16 @@ import org.springframework.http.HttpStatus;
 @Controller
 public class LocationController {
 	
+	List<Voiture> voitures = new ArrayList<Voiture>();
 	
+	public LocationController() {
+		super();
+		Voiture v1 = new Voiture("11AA22", false);
+		voitures.add(v1);
+		Voiture v2 = new Voiture("22BB33", false);
+		voitures.add(v2);
+	}
+
 	/**
 	 * @return un tableau JSon de voitures disponibles avec HttpStatus = OK
 	 */
@@ -25,7 +34,7 @@ public class LocationController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	List<Voiture> getVoitures(){
-		return new ArrayList<Voiture>();
+		return voitures;
 	}
 
 	/**
@@ -37,6 +46,13 @@ public class LocationController {
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	Voiture getVoiture(@PathVariable("immatriculation") String immatriculation){
+		int i=0;
+		while(i<voitures.size() && voitures.get(i).getImmatriculation().equals(immatriculation)==false){
+			i++;
+		}
+		if(i<voitures.size()){
+			return voitures.get(i);
+		}
 		return null;
 	}
 	
@@ -47,6 +63,17 @@ public class LocationController {
 	@RequestMapping(value = "/voiture/{immatriculation}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
 	void louerRamener(@PathVariable("immatriculation") String immatriculation, @RequestParam(value="louer", required = true)boolean louer){
+		int i=0;
+		while(i<voitures.size() && voitures.get(i).getImmatriculation().equals(immatriculation)==false){
+			i++;
+		}
+		if(i<voitures.size()){
+			if(louer  == true){
+				voitures.get(i).setLouer(true);
+			} else {
+				voitures.get(i).setLouer(false);
+			}
+		}
 	}
 	
 	
