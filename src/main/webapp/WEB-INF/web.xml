@@ -25,6 +25,8 @@
 	<url-pattern>/*</url-pattern>
 </servlet-mapping>
 
+<!-- URLs non gérées par Spring Rest Web Service -->
+
 <servlet-mapping>
  <servlet-name>default</servlet-name>
  <url-pattern>/static/*</url-pattern>
