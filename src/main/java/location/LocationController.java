@@ -59,10 +59,11 @@ public class LocationController {
 	/**
 	 * @param immatriculation de la voiture à louer ou à ramener
 	 * @param louer = true si on veut louer une voiture, = false pour ramener la voiture
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/voiture/{immatriculation}", method = RequestMethod.PUT)
 	@ResponseStatus(HttpStatus.OK)
-	void louerRamener(@PathVariable("immatriculation") String immatriculation, @RequestParam(value="louer", required = true)boolean louer){
+	void louerRamener(@PathVariable("immatriculation") String immatriculation, @RequestParam(value="louer", required = true)boolean louer) throws Exception{
 		int i=0;
 		while(i<voitures.size() && voitures.get(i).getImmatriculation().equals(immatriculation)==false){
 			i++;
@@ -73,6 +74,8 @@ public class LocationController {
 			} else {
 				voitures.get(i).setLouer(false);
 			}
+		} else {
+			throw new Exception("Voiture inconnue");
 		}
 	}
 	

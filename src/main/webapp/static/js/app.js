@@ -13,6 +13,10 @@ app.config(['$routeProvider',
 				templateUrl: 'partials/location.html',
 				controller: 'locationController'
 			}).
+			when('/rentCars/ramener', {
+				templateUrl: 'partials/ramenerVoiture.html',
+				controller: 'ramenerController'
+			}).
 			otherwise({
 				redirectTo: '/rentCars'
 			});
